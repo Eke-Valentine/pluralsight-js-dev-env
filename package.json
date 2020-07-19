@@ -13,30 +13,17 @@
   "main": "index.js",
   "scripts": {
     "testy": "mocha --reporter progress buildScript/testSetup.js \" src/**/*.test.js\"",
-    // tests our mocha
     "mochaTest": "mocha --reporter progress buildScript/testSetup.js \" src/**/*.test.js\"",
-    // tests our mocha at all times
-    "mochaTest:watch":"npm run mochaTest -- --watch ",
-
-// Our statrt scripts that combines all together
-    "prestart": "node buildScript/startMessage.js",   
-    "start": "npm-run-all --parallel security-check webpackTest lint:watch mochaTest:watch ",
-
-// tests our localtunnel that allows other developers see my curren tbuild through a website
+    "mochaTest:watch": "npm run mochaTest -- --watch ",
+    "prestart": "node buildScript/startMessage.js",
+    "start": "npm-run-all --parallel security-check webpackTest lint:watch mochaTest:watch localtunnel",
     "localtunnel": "lt --port 3000 --subdomain valentine",
-
     "starter": "node buildScript/server.js",
-
-// tests our babel which transpiles es-6 code to es-5 for browsers that dont support es-6
     "babelTest": "babel-node buildScript/babelstart.js",
-
-// tests our webpack that bundles our code 
     "webpackTest": "babel-node buildScript/srcServer.js",
-
-// tests our lint that keeps track of our code to ensue uniformity
     "lint": "esw webpack.config.* src buildScript --color",
-    // tests our lint that keeps track of our code to ensue uniformity at all times
-    "lint:watch": "npm run lint -- --watch"
+    "lint:watch": "npm run lint -- --watch",
+    "security-check": "nsp check"
   },
   "repository": {
     "type": "git",
@@ -72,6 +59,7 @@
     "mocha": "^3.0.2",
     "nock": "^8.0.0",
     "npm-run-all": "^3.0.0",
+    "nsp": "^2.6.1",
     "numeral": "^1.5.3",
     "open": "0.0.5",
     "rimraf": "^2.5.4",
