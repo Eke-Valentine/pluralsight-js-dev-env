@@ -1,0 +1,90 @@
+{
+  "name": "valentine",
+  "version": "1.0.0",
+  "eslintConfig": {
+    "plugins": [
+      "example"
+    ],
+    "env": {
+      "example/custom": true
+    }
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "testy": "mocha --reporter progress buildScript/testSetup.js \" src/**/*.test.js\"",
+    // tests our mocha
+    "mochaTest": "mocha --reporter progress buildScript/testSetup.js \" src/**/*.test.js\"",
+    // tests our mocha at all times
+    "mochaTest:watch":"npm run mochaTest -- --watch ",
+
+// Our statrt scripts that combines all together
+    "prestart": "node buildScript/startMessage.js",   
+    "start": "npm-run-all --parallel security-check webpackTest lint:watch mochaTest:watch ",
+
+// tests our localtunnel that allows other developers see my curren tbuild through a website
+    "localtunnel": "lt --port 3000 --subdomain valentine",
+
+    "starter": "node buildScript/server.js",
+
+// tests our babel which transpiles es-6 code to es-5 for browsers that dont support es-6
+    "babelTest": "babel-node buildScript/babelstart.js",
+
+// tests our webpack that bundles our code 
+    "webpackTest": "babel-node buildScript/srcServer.js",
+
+// tests our lint that keeps track of our code to ensue uniformity
+    "lint": "esw webpack.config.* src buildScript --color",
+    // tests our lint that keeps track of our code to ensue uniformity at all times
+    "lint:watch": "npm run lint -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eke-Valentine/pluralsight-js-dev-env.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eke-Valentine/pluralsight-js-dev-env/issues"
+  },
+  "homepage": "https://github.com/Eke-Valentine/pluralsight-js-dev-env#readme",
+  "dependencies": {
+    "@babel/node": "^7.10.3",
+    "@babel/register": "^7.10.5",
+    "babel-loader": "^8.1.0",
+    "babel-node": "0.0.1-security",
+    "babel-preset": "^1.1.6",
+    "chai": "^3.5.0",
+    "chalk": "^1.1.3",
+    "cheerio": "^0.22.0",
+    "compression": "^1.7.4",
+    "cross-env": "^2.0.0",
+    "css-loader": "^3.6.0",
+    "eslint": "^3.4.0",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-watch": "^2.1.14",
+    "express": "^4.14.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^2.22.0",
+    "jsdom": "^9.4.2",
+    "json-schema-faker": "^0.5.0-rcv.24",
+    "localtunnel": "^1.8.1",
+    "mocha": "^3.0.2",
+    "nock": "^8.0.0",
+    "npm-run-all": "^3.0.0",
+    "numeral": "^1.5.3",
+    "open": "0.0.5",
+    "rimraf": "^2.5.4",
+    "save": "^2.4.0",
+    "style-loader": "^1.2.1",
+    "surge": "^0.21.3",
+    "webpack": "^1.13.2",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.12.2",
+    "webpack-md5-hash": "0.0.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5"
+  }
+}
